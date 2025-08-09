@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Для Полі 💖</title>
+<style>
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #ffe6f0 0%, #ffd1dc 50%, #ffb6c1 100%);
+    font-family: 'Comic Sans MS', cursive;
+    text-align: center;
+    overflow-x: hidden;
+    padding: 20px;
+    height: 100vh;
+    position: relative;
+  }
+  h1 {
+    color: #ff4d88;
+    font-size: clamp(1.5em, 6vw, 2.2em);
+    margin-top: 10px;
+  }
+  .cat {
+    font-size: clamp(2.5em, 10vw, 4em);
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .cat:active {
+    transform: scale(1.3) rotate(10deg);
+  }
+  .fun-button {
+    position: absolute;
+    background: #ff80aa;
+    border: none;
+    padding: 12px 20px;
+    font-size: clamp(1em, 5vw, 1.2em);
+    border-radius: 30px;
+    color: white;
+    margin-top: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(255, 0, 85, 0.3);
+    transition: background 0.2s ease, transform 0.3s ease, left 0.3s ease, top 0.3s ease;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .fun-button:hover {
+    background: #ff6699;
+  }
+  #message {
+    margin-top: 20px;
+    font-size: clamp(1.1em, 5vw, 1.4em);
+    color: #ff3385;
+    min-height: 40px;
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .heart {
+    position: fixed;
+    top: -10px;
+    animation: fall linear forwards;
+    z-index: 999;
+  }
+  @keyframes fall {
+    to {
+      transform: translateY(110vh);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="cat" onclick="catPurr()">🐱</div>
+<h1>Поля, моя зайка! 💖</h1>
+
+<button class="fun-button" onclick="handleClick()">Натисни мене 🐾</button>
+
+<div id="message"></div>
+
+<script>
+const messages = [
+  "Ти найкраща в світі, моя зайка! 💕",
+  "Мур-мур люблю тебе, Поля 😽",
+  "Ти моє котенятко 🐱💖",
+  "Обіймаю тебе міцно 🤗",
+  "Ти робиш мій світ яскравішим 🌸"
+];
+
+const catMessages = [
+  "Мяу! Ти чудова, зайка 🐾",
+  "Погладь мене ще! 😺",
+  "Я муркочу від щастя 💖",
+  "Ти мій улюблений хазяйчик 😽"
+];
+
+const hearts = ["💖","💗","💓","💕","💞"];
+
+function showMessage() {
+  const msg = messages[Math.floor(Math.random() * messages.length)];
+  document.getElementById('message').textContent = msg;
+}
+
+function catPurr() {
+  const catEl = document.querySelector('.cat');
+  catEl.textContent = ["🐱","😺","😽","😻"][Math.floor(Math.random() * 4)];
+  const msg = catMessages[Math.floor(Math.random() * catMessages.length)];
+  document.getElementById('message').textContent = msg;
+}
+
+function moveButtonRandom() {
+  const btn = document.querySelector('.fun-button');
+  const padding = 20; // щоб кнопка не чіплялася за краї
+  const maxX = window.innerWidth - btn.offsetWidth - padding;
+  const maxY = window.innerHeight - btn.offsetHeight - padding;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  btn.style.left = `${x}px`;
+  btn.style.top = `${y}px`;
+  btn.style.transform = 'translate(0, 0) scale(1.1) rotate(5deg)';
+  setTimeout(() => {
+    btn.style.transform = 'translate(0, 0) scale(1) rotate(0deg)';
+  }, 300);
+}
+
+function handleClick() {
+  showMessage();
+  moveButtonRandom();
+}
+
+// Анімація сердечок
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+  heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+  heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
